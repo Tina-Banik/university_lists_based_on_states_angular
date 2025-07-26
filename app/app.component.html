@@ -1,0 +1,52 @@
+<div class="container-fluid">
+  <header class=" jumbotron text-center">All The University Lists</header>
+  <select #st (change)="select(st)" class="form-control">
+    <option></option>
+    <option *ngFor="let s of sList" value="{{s}}">{{s}}</option>
+  </select>
+  <ng-container *ngIf="swList != 0 else allList">
+      <table class="table table-border">
+      <thead>
+        <tr>
+          <th>University Name</th>
+          <th>University Country</th>
+          <th>State-Province</th>
+          <th>Web Pages</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let s of swList | paginate:{itemsPerPage:10, currentPage:p}">
+          <td>{{s.name}}</td>
+          <td>{{s.country}}</td>
+          <td>{{s['state-province']}}</td>
+          <td>
+            <a href="{{s.web_pages}}" target="_blank">{{s.web_pages}}</a>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </ng-container>
+  <ng-template #allList>
+      <table class="table table-border">
+      <thead>
+        <tr>
+          <th>University Name</th>
+          <th>University Country</th>
+          <th>State-Province</th>
+          <th>Web Pages</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let u of allUList | paginate:{itemsPerPage:10, currentPage:p}">
+          <td>{{u.name}}</td>
+          <td>{{u.country}}</td>
+          <td>{{u['state-province']}}</td>
+          <td>
+            <a href="{{u.web_pages}}" target="_blank">{{u.web_pages}}</a>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </ng-template>
+    <pagination-controls (pageChange)="p = $event"></pagination-controls>
+</div>
